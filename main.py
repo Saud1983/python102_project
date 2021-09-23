@@ -33,3 +33,19 @@ while running:
         running = False
     else:
         new_entry(new_name)
+
+
+
+
+def OddOrEven(num):
+    str1 = str(num)
+    sum = 0
+    for i in str1:
+        sum = sum + int(i)
+    if sum % 2 == 0:
+        return 'even'
+    else:
+        return 'odd'
+
+
+print(f"{OddOrEven(4)}")
