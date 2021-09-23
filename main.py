@@ -64,3 +64,16 @@ def replace_func(character):
 
 
 print(f"{replace_func('s')}")
+
+
+def replace_func(character):
+    alpha ='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    if alpha.find(character.upper())>12:
+        alpha =alpha[::-1]
+
+    x = alpha.find(character.upper())
+    alpha = alpha[::-1]
+    return alpha[x]
+
+print(f"{replace_func('t')}")
