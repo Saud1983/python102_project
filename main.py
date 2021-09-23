@@ -49,3 +49,18 @@ def OddOrEven(num):
 
 
 print(f"{OddOrEven(4)}")
+
+
+def replace_func(character):
+    alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    swap = ""
+    if alph.find(character.upper()) > 12:
+        alph = alph[::-1]
+    print(alph)
+    x = alph.find(character.upper())
+    alph = alph[::-1]
+    print(alph)
+    return alph[x]
+
+
+print(f"{replace_func('s')}")
