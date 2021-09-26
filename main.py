@@ -1,3 +1,5 @@
+
+
 import datetime
 from datetime import date
 
@@ -15,10 +17,6 @@ def new_entry():
         if submit == "y":  # Save the new key/value pair to the a dictionary named all_persons.
             new_key = new_key.lower().capitalize()  # It's the person's name that will be a key in the dictionary after giving it a proper formatting
 
-            # Getting the current year out of the Operating System.
-            today = date.today()  # The current date from the Operating System
-            today = today.strftime('%Y')  # The year of the current date
-
             # Getting the current year out of the given birthday of the current person.
             birthday_year = new_value.split('-')[2]  # The year of the current given birthday
 
@@ -32,12 +30,15 @@ def new_entry():
 
 def unpacking(name, info):
     print(f'{name} is {info[0]} years old, and she/he was born on {info[1]}')
+    all_persons[name] = info[0]
 
 
 running = True
 all_persons = {}  # Initial value of a global dictionary that saves all entries.
 current_person = {}  # Initial value of a global dictionary that save only one key/value pair at a time that to be called again and again for unpacking purposes.
 
+# Getting the current year out of the Operating System.
+today = date.today().strftime('%Y')  # Getting the year of the current date from the Operating System
 
 while running:
     new_name = input("Enter '0' for printing the result, or enter '1' to add a new name :\n")
@@ -50,6 +51,9 @@ while running:
             current_person['info'] = value  # It's a list contains 2 elements [ age, the full name of the day ]
             unpacking(**current_person)
 
+        print(f"The oldest one is {max(all_persons, key=all_persons.get)}")
+        print(f"The youngest one is {min(all_persons, key=all_persons.get)}")
+        print(f"Total People: {len(all_persons)}")
         running = False
     else:
         new_entry()
