@@ -19,6 +19,7 @@ def new_entry(entry):
         day_name = birthday.strftime('%A')  # Retrieving the full day name as a string
         all_persons[new_key] = [int(today) - int(birthday_year), day_name]  # Add a new key/value pair to the dictionary where the kay is the person's name, and the value is a list of 2 element, one is the person's age, and the second one is the day name
 
+
     else:
         print(f'Invalid Entry {entry}')
 
@@ -39,6 +40,8 @@ while running:
     new_name = input("Enter a name and birthday with this format 'name, DD-MM-YYYY, or '0' for printing the result:\n")
     # choices
     if new_name == "0":
+        # Sorting the dictionary based on values "descending"
+        all_persons = {k: v for k, v in sorted(all_persons.items(), key=lambda item: item[1], reverse=True)}
         # Start unpacking the dictionary that has all the information one by one
         for key, value in all_persons.items():  # Iterate throw the dictionary (all_persons)
             current_person['name'] = key  # It's the person's name
