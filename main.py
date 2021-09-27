@@ -4,12 +4,11 @@ import re
 
 
 def new_entry(entry):
-
     pattern = re.compile(r"[a-zA-Z]+, ?(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[12]?)-\d{4}")
     if re.match(pattern,entry):
         entry_parts = entry.split(',')
         new_key = entry_parts[0].lower().capitalize()  # It's the person's name that will be a key in the dictionary after giving it a proper formatting
-        new_value = entry_parts[1]
+        new_value = entry_parts[1]  # It's the birthday that will be used for getting age and the day name
 
         # Getting the current year out of the given birthday of the current person.
         birthday_year = new_value.split('-')[2]  # The year of the current given birthday
@@ -37,22 +36,21 @@ current_person = {}  # Initial value of a global dictionary that save only one k
 today = date.today().strftime('%Y')  # Getting the year of the current date from the Operating System
 
 while running:
-    new_name = input("Please enter the name and value according to this format 'name, DD-MM-YYYY, or '0' for printing the result:\n")
-
+    new_name = input("Enter a name and birthday with this format 'name, DD-MM-YYYY, or '0' for printing the result:\n")
     # choices
     if new_name == "0":
         # Start unpacking the dictionary that has all the information one by one
         for key, value in all_persons.items():  # Iterate throw the dictionary (all_persons)
             current_person['name'] = key  # It's the person's name
             current_person['info'] = value  # It's a list contains 2 elements [ age, the full name of the day ]
-            unpacking(**current_person)
-
+            unpacking(**current_person)  # Call the function to unpack dictionary items one at a time
+        # Check for a proper output message based on the length of the dictionary
         if len(all_persons) > 1:
             print(f"The oldest one is {max(all_persons, key=all_persons.get)}")
             print(f"The youngest one is {min(all_persons, key=all_persons.get)}")
-
         else:
             print('There is no oldest or youngest person')
+        # Give a final message and terminate the program
         print(f"Total People: {len(all_persons)}")
         running = False
     else:
