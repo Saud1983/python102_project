@@ -1,6 +1,9 @@
+
 import datetime
 from datetime import date
 import re
+
+
 
 
 def new_entry(entry):
@@ -18,10 +21,12 @@ def new_entry(entry):
         birthday = datetime.date(int(birthday[2]), int(birthday[1]), int(birthday[0]))  # Converting the current birthday from a string type to a datetime type in a proper order(Y,M,D)/type(integer) arguments that datetime.date work with.
         day_name = birthday.strftime('%A')  # Retrieving the full day name as a string
         all_persons[new_key] = [int(today) - int(birthday_year), day_name]  # Add a new key/value pair to the dictionary where the kay is the person's name, and the value is a list of 2 element, one is the person's age, and the second one is the day name
-
+        return ','.join(entry_parts[::-1])
 
     else:
         print(f'Invalid Entry {entry}')
+
+
 
 
 def unpacking(name, info):
@@ -32,7 +37,7 @@ def unpacking(name, info):
 running = True
 all_persons = {}  # Initial value of a global dictionary that saves all entries.
 current_person = {}  # Initial value of a global dictionary that save only one key/value pair at a time that to be called again and again for unpacking purposes.
-
+entry_in_reverse = []
 # Getting the current year out of the Operating System.
 today = date.today().strftime('%Y')  # Getting the year of the current date from the Operating System
 
@@ -55,6 +60,7 @@ while running:
             print('There is no oldest or youngest person')
         # Give a final message and terminate the program
         print(f"Total People: {len(all_persons)}")
+        [print(i.strip()) for i in entry_in_reverse]
         running = False
     else:
-        new_entry(new_name)
+        entry_in_reverse.append(new_entry(new_name))
