@@ -1,12 +1,10 @@
-
-import datetime
 from datetime import date
 import re
 
 
 def new_entry(entry):
-    pattern = re.compile(r"[a-zA-Z]+, ?(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012]?)-\d{4}")
-    if re.match(pattern,entry):
+    pattern = re.compile(r"[a-zA-Z]+, ?(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012]?)-\d{4}$")
+    if re.match(pattern, entry):
         entry_parts = entry.split(',')
         new_key = entry_parts[0].lower().capitalize()  # It's the person's name that will be a key in the dictionary after giving it a proper formatting
         new_value = entry_parts[1]  # It's the birthday that will be used for getting age and the day name
@@ -16,10 +14,12 @@ def new_entry(entry):
 
         # Getting the name of the day out of the given birthday of the current person
         birthday = new_value.split('-')  # Converting the current birthday to a list that has 3 elements
-        birthday = datetime.date(int(birthday[2]), int(birthday[1]), int(birthday[0]))  # Converting the current birthday from a string type to a datetime type in a proper order(Y,M,D)/type(integer) arguments that datetime.date work with.
+        birthday = date(int(birthday[2]), int(birthday[1]), int(birthday[0]))  # Converting the current birthday from a string type to a datetime type in a proper order(Y,M,D)/type(integer) arguments that datetime.date work with.
         day_name = birthday.strftime('%A')  # Retrieving the full day name as a string
         all_persons[new_key] = [int(today) - int(birthday_year), day_name]  # Add a new key/value pair to the dictionary where the kay is the person's name, and the value is a list of 2 element, one is the person's age, and the second one is the day name
-        return ','.join(entry_parts[::-1])
+
+        # This return is only to fill up entry_in_reverse list in this format 'DD-MM-YYYY, name' one element at a time.
+        return ', '.join(entry_parts[::-1])
 
     else:
         print(f'Invalid Entry {entry}')
@@ -35,13 +35,13 @@ def unpacking(name, info):
 running = True
 all_persons = {}  # Initial value of a global dictionary that saves all entries.
 current_person = {}  # Initial value of a global dictionary that save only one key/value pair at a time that to be called again and again for unpacking purposes.
-entry_in_reverse = []
+entry_in_reverse = []  # Initial value for a list with this format 'DD-MM-YYYY, name' for each element
 born_on_sunday = []
 # Getting the current year out of the Operating System.
 today = date.today().strftime('%Y')  # Getting the year of the current date from the Operating System
 
 while running:
-    new_name = input("Enter a name and birthday with this format 'name, DD-MM-YYYY, or '0' for printing the result:\n")
+    new_name = input("Enter a name and birthday with this format 'name, DD-MM-YYYY', or '0' for printing the result:\n")
     # choices
     if new_name == "0":
         # Sorting the dictionary based on values "descending"
@@ -66,3 +66,4 @@ while running:
         running = False
     else:
         entry_in_reverse.append(new_entry(new_name))
+# seba, 30-5-2012 sana,17-05-1987 saud, 2-10-1983 layla, 14-6-2017
