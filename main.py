@@ -4,10 +4,8 @@ from datetime import date
 import re
 
 
-
-
 def new_entry(entry):
-    pattern = re.compile(r"[a-zA-Z]+, ?(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[12]?)-\d{4}")
+    pattern = re.compile(r"[a-zA-Z]+, ?(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012]?)-\d{4}")
     if re.match(pattern,entry):
         entry_parts = entry.split(',')
         new_key = entry_parts[0].lower().capitalize()  # It's the person's name that will be a key in the dictionary after giving it a proper formatting
@@ -27,17 +25,18 @@ def new_entry(entry):
         print(f'Invalid Entry {entry}')
 
 
-
-
 def unpacking(name, info):
     print(f'{name} is {info[0]} years old, and she/he was born on {info[1]}')
-    all_persons[name] = info[0]
+    all_persons[name] = info[0]  # This line to be used for knowing max and min ages
+    if info[1] == "Sunday":  # This line is to make a list of people who born in Sunday
+        born_on_sunday.append(name)
 
 
 running = True
 all_persons = {}  # Initial value of a global dictionary that saves all entries.
 current_person = {}  # Initial value of a global dictionary that save only one key/value pair at a time that to be called again and again for unpacking purposes.
 entry_in_reverse = []
+born_on_sunday = []
 # Getting the current year out of the Operating System.
 today = date.today().strftime('%Y')  # Getting the year of the current date from the Operating System
 
@@ -60,7 +59,10 @@ while running:
             print('There is no oldest or youngest person')
         # Give a final message and terminate the program
         print(f"Total People: {len(all_persons)}")
-        [print(i.strip()) for i in entry_in_reverse]
+        print("\nReversed Entry:")
+        [print(i.strip()) for i in entry_in_reverse if i != None]
+        print("\nBorn on Sunday:")
+        [print(i.strip()) for i in born_on_sunday ]
         running = False
     else:
         entry_in_reverse.append(new_entry(new_name))
