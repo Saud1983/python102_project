@@ -67,3 +67,5 @@ while running:
     else:
         entry_in_reverse.append(new_entry(new_name))
 # seba, 30-5-2012 sana,17-05-1987 saud, 2-10-1983 layla, 14-6-2017
+
+#test The connection between both pcs in Oct 29, 2021
